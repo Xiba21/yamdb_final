@@ -8,9 +8,9 @@ class IsAdministrator(BasePermission):
 
     def has_permission(self, request, view):
         return (request.user.is_authenticated and (
-                request.user.get_role == UserRole.ADMIN or
-                request.user.is_staff or
-                request.user.is_superuser
+                request.user.get_role == UserRole.ADMIN
+                or request.user.is_staff
+                or request.user.is_superuser
                 ))
 
 
@@ -21,16 +21,16 @@ class ReadOnly(BasePermission):
 
 class IsAuthorOrIsStaffPermission(BasePermission):
     def has_permission(self, request, view):
-        return (request.method in SAFE_METHODS and
-                request.user.is_anonymous or
-                request.user.is_authenticated)
+        return (request.method in SAFE_METHODS
+                and request.user.is_anonymous
+                or request.user.is_authenticated)
 
     def has_object_permission(self, request, view, obj):
         if request.method in ['PATCH', 'DELETE']:
-            return (obj.author == request.user or
-                    request.user.is_staff or
-                    request.user.is_superuser or
-                    request.user.get_role in [
+            return (obj.author == request.user
+                    or request.user.is_staff
+                    or request.user.is_superuser
+                    or request.user.get_role in [
                         UserRole.ADMIN,
                         UserRole.MODERATOR
                     ])
