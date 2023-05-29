@@ -147,6 +147,12 @@ python3 manage.py load_data_csv --path static/data/users.csv --model_name user -
 
 ----
 
+### Ссылка на развернутый проект
+
+http://158.160.70.32/admin/
+
+----
+
 ### Авторы проекта
 
 Александр Розинков
